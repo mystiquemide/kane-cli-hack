@@ -1,0 +1,12 @@
+{
+  "meta": { "title": "سلة التسوق · Tidepool Coffee" },
+  "nav": { "shop": "المتجر", "account": "الحساب" },
+  "cart": {
+    "title": "سلة التسوق",
+    "shipping": "شحن مجاني للطلبات التي تزيد عن 200 درهم.",
+    "continue": "متابعة التسوق",
+    "checkout": "إتمام الشراء"
+  },
+  "product": { "name": "ماكينة إسبريسو تايدبول", "desc": "غلايتان، حامل فلتر 58 مم" },
+  "price": { "amount": 5499, "currency": "AED", "symbol": "AED ", "decimals": 2 }
+}

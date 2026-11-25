@@ -1,0 +1,12 @@
+{
+  "meta": { "title": "Ihr Warenkorb · Tidepool Coffee" },
+  "nav": { "shop": "Shop", "account": "Konto" },
+  "cart": {
+    "title": "Ihr Warenkorb",
+    "shipping": "Kostenloser Versand ab 50 €.",
+    "continue": "Weiter einkaufen",
+    "checkout": "Zur Kasse gehen"
+  },
+  "product": { "name": "Tidepool Espressomaschine", "desc": "Dualboiler, 58-mm-Siebträger" },
+  "price": { "amount": 1399, "currency": "EUR", "symbol": "€", "decimals": 2 }
+}

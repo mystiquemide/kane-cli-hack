@@ -1,0 +1,4 @@
+node_modules/
+.spillover/
+.testmuai/
+.env

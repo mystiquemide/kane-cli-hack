@@ -1,0 +1,22 @@
+{
+  "url": "http://127.0.0.1:4173/?lang={locale}",
+  "serve": "demo-app",
+  "catalog": "demo-app/locales/{locale}.json",
+  "source": "en",
+  "fixScope": ["demo-app/"],
+  "locales": {
+    "de": { "intl": "de-DE" },
+    "ar": { "intl": "ar-AE", "dir": "rtl" },
+    "hi": { "intl": "hi-IN" },
+    "ja": { "intl": "ja-JP" }
+  },
+  "strings": {
+    "cart.title": "main page heading",
+    "cart.shipping": "shipping note below the product",
+    "cart.checkout": "orange checkout button"
+  },
+  "price": {
+    "key": "price",
+    "element": "product price on the right side of the item card"
+  }
+}

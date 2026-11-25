@@ -1,0 +1,21 @@
+{
+  "name": "spillover-cli",
+  "version": "0.1.0",
+  "description": "Catch localization bugs that only show up on screen. Kane CLI checks every locale in real Chrome, your coding agent fixes what breaks.",
+  "type": "module",
+  "bin": {
+    "spillover": "bin/spillover.js"
+  },
+  "scripts": {
+    "demo": "node bin/spillover.js check",
+    "loop": "node bin/spillover.js loop",
+    "test": "node --test test/*.test.js"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {
+    "playwright-core": "~1.63.0"
+  },
+  "license": "MIT"
+}

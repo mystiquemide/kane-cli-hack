@@ -1,0 +1,12 @@
+{
+  "meta": { "title": "Your cart · Tidepool Coffee" },
+  "nav": { "shop": "Shop", "account": "Account" },
+  "cart": {
+    "title": "Your cart",
+    "shipping": "Free shipping on orders over $50.",
+    "continue": "Keep shopping",
+    "checkout": "Checkout"
+  },
+  "product": { "name": "Tidepool Espresso Machine", "desc": "Dual boiler, 58 mm portafilter" },
+  "price": { "amount": 1499, "currency": "USD", "symbol": "$", "decimals": 2 }
+}

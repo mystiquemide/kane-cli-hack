@@ -1,0 +1,10 @@
+{
+  "meta": { "title": "カート · Tidepool Coffee" },
+  "nav": { "shop": "ショップ", "account": "アカウント" },
+  "cart": {
+    "title": "カート",
+    "continue": "買い物を続ける"
+  },
+  "product": { "name": "タイドプール エスプレッソマシン", "desc": "デュアルボイラー、58mm ポルタフィルター" },
+  "price": { "amount": 219800, "currency": "JPY", "symbol": "¥", "decimals": 0 }
+}

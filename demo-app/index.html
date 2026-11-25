@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Tidepool Coffee</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="bar">
+    <span class="brand">Tidepool</span>
+    <nav>
+      <a href="#" data-i18n="nav.shop"></a>
+      <a href="#" data-i18n="nav.account"></a>
+      <select id="lang" aria-label="Language"></select>
+    </nav>
+  </header>
+  <main class="cart">
+    <h1 data-i18n="cart.title"></h1>
+    <div class="item">
+      <div class="thumb" aria-hidden="true"></div>
+      <div class="meta">
+        <div class="name" data-i18n="product.name"></div>
+        <div class="desc" data-i18n="product.desc"></div>
+      </div>
+      <div class="price" id="price"></div>
+    </div>
+    <p class="note" data-i18n="cart.shipping"></p>
+    <div class="actions">
+      <button class="secondary" data-i18n="cart.continue"></button>
+      <button class="primary" data-i18n="cart.checkout"></button>
+    </div>
+  </main>
+  <script src="app.js"></script>
+</body>
+</html>

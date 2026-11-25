@@ -1,0 +1,12 @@
+{
+  "meta": { "title": "आपकी कार्ट · Tidepool Coffee" },
+  "nav": { "shop": "शॉप", "account": "खाता" },
+  "cart": {
+    "title": "आपकी कार्ट",
+    "shipping": "₹999 से अधिक के ऑर्डर पर मुफ़्त शिपिंग।",
+    "continue": "खरीदारी जारी रखें",
+    "checkout": "चेकआउट करें"
+  },
+  "product": { "name": "टाइडपूल एस्प्रेसो मशीन", "desc": "डुअल बॉयलर, 58 मिमी पोर्टाफ़िल्टर" },
+  "price": { "amount": 124999, "currency": "INR", "symbol": "₹", "decimals": 2 }
+}
