@@ -20,32 +20,56 @@ export function expectedPrice(price, intlLocale) {
   return new Intl.NumberFormat(intlLocale, { style: "currency", currency: price.currency }).format(price.amount);
 }
 
+// Leaf keys with short, human-readable values: what a user actually sees.
+export function pickStrings(source, limit = 5, skip = []) {
+  const out = [];
+  const walk = (node, prefix) => {
+    for (const [k, v] of Object.entries(node || {})) {
+      const key = prefix ? `${prefix}.${k}` : k;
+      if (skip.some((s) => key === s || key.startsWith(`${s}.`))) continue;
+      if (v && typeof v === "object") walk(v, key);
+      else if (typeof v === "string" && v.length >= 3 && v.length <= 60 && /\p{L}{2}/u.test(v) && !/[{}<>]|https?:/.test(v) && !/^[A-Z]{3}$/.test(v)) out.push(key);
+    }
+  };
+  walk(source, "");
+  return out.slice(0, limit);
+}
+
+// Configured strings map keys to where they appear. With none configured,
+// pick a few visible strings and let Kane look for them anywhere on the page.
+function stringsToCheck(config, source) {
+  if (config.strings && !Array.isArray(config.strings)) return config.strings;
+  const keys = Array.isArray(config.strings) ? config.strings : pickStrings(source, 6, ["meta", config.price?.key].filter(Boolean));
+  return Object.fromEntries(keys.map((k) => [k, null]));
+}
+
 // Build the list of checks for one locale.
 // Each check has: id, kind, condition (sent to Kane), and what counts as a pass.
 export function buildChecks({ locale, settings, catalog, source, config }) {
   const checks = [];
 
-  for (const [key, description] of Object.entries(config.strings || {})) {
+  for (const [key, description] of Object.entries(stringsToCheck(config, source))) {
     const translated = lookup(catalog, key);
     const sourceText = lookup(source, key);
+    const where = description ? `The ${description}` : null;
     if (translated == null) {
       checks.push({
         id: `string:${key}`,
         kind: "untranslated",
         key,
-        description,
+        description: description || `text "${key}"`,
         expected: `a ${locale} translation`,
         sourceText,
-        condition: `The ${description} reads '${sourceText}'`,
+        condition: where ? `${where} reads '${sourceText}'` : `The page shows the untranslated text '${sourceText}'`,
       });
     } else {
       checks.push({
         id: `string:${key}`,
         kind: "string",
         key,
-        description,
+        description: description || `text "${key}"`,
         expected: translated,
-        condition: `The ${description} reads '${translated}'`,
+        condition: where ? `${where} reads '${translated}'` : `The page shows the text '${translated}'`,
       });
     }
   }

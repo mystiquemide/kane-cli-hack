@@ -34,29 +34,36 @@ The agent fixed root causes, not symptoms: one `Intl.NumberFormat` change fixed 
 
 A recorded run is in [`examples/`](examples): the [terminal output](examples/loop-run.txt), the [brief Kane's verdicts produced](examples/brief.md), the [agent's diff](examples/agent-fix.diff) and the [final report](examples/report-after-fix.json).
 
-## Quick start
+## Install
 
-Requires Node 18+, Google Chrome, and a [TestMu AI](https://www.testmuai.com) account.
-
-```bash
-npm install -g @testmuai/kane-cli
-kane-cli login                      # or: kane-cli login --username <user> --access-key <key>
-
-git clone https://github.com/mystiquemide/kane-cli-hack && cd kane-cli-hack
-npm install
-
-npm run check                       # find the bugs (about 20 to 30 Kane credits)
-npm run loop                        # find, fix with Claude Code, re-verify
-git checkout -- demo-app            # put the bugs back for another run
-```
-
-Any coding agent that takes its prompt on stdin works:
+You need Node 18+, Google Chrome and a free [TestMu AI](https://www.testmuai.com) account.
 
 ```bash
-node bin/spillover.js loop --agent "<your agent command>"
+npm install -g @testmuai/kane-cli github:mystiquemide/kane-cli-hack
+kane-cli login
+spillover demo
 ```
 
-Exit codes: `0` every locale passes, `1` a locale is broken, `2` setup error. Drop `spillover check` into CI as is.
+`spillover demo` copies a sample store with real localization bugs into `./spillover-demo` and checks it, so you can see what Spillover catches before pointing it at your own app.
+
+## Use it on your app
+
+```bash
+cd your-app
+spillover init --url "http://localhost:3000/?lang={locale}"
+spillover doctor
+spillover check
+spillover loop
+```
+
+- `init` finds your translation files (`locales/de.json`, `public/locales/de/common.json` and similar), detects right-to-left languages and price fields, and writes `spillover.config.json`.
+- `doctor` checks Chrome, Kane CLI, your sign-in and your credits, and tells you how to fix anything missing.
+- `check` finds the bugs. It confirms your app is running before it spends any Kane credits.
+- `loop` hands the bugs to Claude Code and re-checks until every language passes. Use any other agent that reads a prompt on stdin with `--agent "<command>"`.
+
+Exit codes: `0` every locale passes, `1` a locale is broken, `2` setup error. Put `spillover check` in CI as is.
+
+Each language costs a few Kane credits per check.
 
 ## How it works
 
@@ -66,9 +73,9 @@ Exit codes: `0` every locale passes, `1` a locale is broken, `2` setup error. Dr
 4. Spillover compares what Kane read against the catalog, ignoring spacing and invisible direction marks, so formatting noise doesn't raise false alarms.
 5. Failures go into `.spillover/brief.md` with Kane's reasoning and a screenshot per locale. `spillover loop` hands the brief to your agent and re-checks only the locales that failed.
 
-## Point it at your app
+## Config
 
-Add a `spillover.config.json`:
+`spillover init` writes this for you. To point Kane at exact spots on the page, add `strings`:
 
 ```json
 {
@@ -88,7 +95,7 @@ Add a `spillover.config.json`:
 }
 ```
 
-`strings` maps catalog keys to a plain-English description of where they appear, which is what Kane looks for. Set `serve` to a folder if you want Spillover to host a static app for you.
+`strings` maps catalog keys to a plain-English description of where they appear. Without it, Spillover picks a few visible strings and Kane looks for them anywhere on the page. Set `serve` to a folder and Spillover hosts a static app for you.
 
 ## Limits
 

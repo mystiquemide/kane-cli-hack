@@ -16,7 +16,7 @@ export function printLocale(result) {
       ? `${red("FAIL")} ${bold(result.locale)}  ${failed.length} of ${result.checks.length} checks failed`
       : `${green("PASS")} ${bold(result.locale)}  ${result.checks.length} checks`;
   console.log(head + dim(result.credits ? `  (${result.credits.toFixed(1)} credits, ${result.duration.toFixed(0)}s)` : ""));
-  for (const check of failed) console.log(`     ${red("x")} ${check.reason}`);
+  if (!result.error) for (const check of failed) console.log(`     ${red("x")} ${check.reason}`);
 }
 
 export function summary(results) {

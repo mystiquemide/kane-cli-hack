@@ -82,14 +82,21 @@ async function pool(items, size, worker) {
 
 export async function check(config, locales = Object.keys(config.locales)) {
   await mkdir(config.outDir, { recursive: true });
-  console.log(dim(`Kane CLI is checking ${locales.join(", ")} in real Chrome...`));
-  const results = await withServer(config, () =>
-    pool(locales, config.parallel, async (locale) => {
+  const results = await withServer(config, async () => {
+    // Make sure the app is up before spending any Kane credits.
+    const first = config.url.replace("{locale}", locales[0]);
+    try {
+      await fetch(first, { signal: AbortSignal.timeout(5000) });
+    } catch {
+      throw new Error(`Your app isn't answering at ${first}\n  Start it first, or change "url" in spillover.config.json. No Kane credits were used.`);
+    }
+    console.log(dim(`Kane CLI is checking ${locales.join(", ")} in real Chrome...`));
+    return pool(locales, config.parallel, async (locale) => {
       const r = await checkLocale(config, locale);
       printLocale(r);
       return r;
-    }),
-  );
+    });
+  });
   const s = summary(results);
   const report = { at: new Date().toISOString(), locales: results, credits: s.credits };
   await writeFile(path.join(config.outDir, "report.json"), JSON.stringify(report, null, 2));
