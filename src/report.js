@@ -46,9 +46,12 @@ export function writeBrief(results, config, outDir) {
     if (result.error) lines.push(`- Check could not run: ${result.error}`);
     for (const check of failed) {
       lines.push(`- **${check.description}**: ${check.reason}`);
-      if (check.kaneReason) lines.push(`  - Kane: ${check.kaneReason}`);
+      if (check.kaneReason) {
+        const label = check.kind === "untranslated" ? "Kane read the untranslated text on screen" : "Kane";
+        lines.push(`  - ${label}: ${check.kaneReason}`);
+      }
     }
-    if (result.screenshot) lines.push("", `Screenshot: \`${path.relative(process.cwd(), result.screenshot)}\``);
+    if (result.screenshot) lines.push("", `Screenshot: \`${result.screenshot}\``);
     lines.push("");
   }
   return lines.filter((l, i, all) => !(l === "" && all[i - 1] === "")).join("\n");

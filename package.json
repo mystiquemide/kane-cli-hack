@@ -7,7 +7,7 @@
     "spillover": "bin/spillover.js"
   },
   "scripts": {
-    "demo": "node bin/spillover.js check",
+    "check": "node bin/spillover.js check",
     "loop": "node bin/spillover.js loop",
     "test": "node --test test/*.test.js"
   },

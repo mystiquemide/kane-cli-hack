@@ -1,0 +1,39 @@
+Round 1: verify
+Kane CLI is checking de, ar, hi, ja in real Chrome...
+FAIL ja  2 of 5 checks failed  (1.9 credits, 16s)
+     x Missing translation for "cart.shipping". The page shows the source text "Free shipping on orders over $50.".
+     x Missing translation for "cart.checkout". The page shows the source text "Checkout".
+FAIL de  2 of 5 checks failed  (3.1 credits, 17s)
+     x Price is not formatted for this locale. Expected "1.399,00 €", screen shows "€1,399.00".
+     x A button label is cut off on screen. The translated text is wider than its button.
+FAIL hi  1 of 5 checks failed  (3.0 credits, 23s)
+     x Price is not formatted for this locale. Expected "₹1,24,999.00", screen shows "₹124,999.00".
+FAIL ar  2 of 6 checks failed  (3.9 credits, 39s)
+     x Price is not formatted for this locale. Expected "5,499.00 د.إ.", screen shows "AED 5,499.00".
+     x The page is not laid out right-to-left. Set the document direction for RTL locales.
+
+4 of 4 locales broken  ·  11.9 Kane credits  ·  report: .spillover/report.json
+Brief for your coding agent: .spillover/brief.md
+
+Round 1: fix  handing 4 broken locales to: claude
+I couldn't run the node check because the command needs approval. None of the fixes have been run or checked against Kane.
+
+- **Prices (de, ar, hi):** `formatPrice` in `app.js` now uses `Intl.NumberFormat` with a currency style and a per-locale region (de-DE, ar-AE, hi-IN, ja-JP, en-US). That should give `1.399,00 €`, `5,499.00 د.إ.` and `₹1,24,999.00`. I haven't confirmed the exact strings. Arabic may add invisible direction marks around the number.
+- **Button cut off (de):** I removed the fixed `width: 132px`, `overflow: hidden` and `text-align: left` from `.primary` in `styles.css`. The button now sizes to its label.
+- **Page direction (ar):** `app.js` now sets `document.documentElement.dir` to `rtl` for ar, he, fa and ur, and `ltr` otherwise.
+- **Missing keys (ja):** I added `cart.shipping` and `cart.checkout` to `locales/ja.json`. The text is "$50以上のご注文は送料無料。" and "レジに進む".
+
+Do you want me to approve a node run to check the price strings?
+Re-checking only: de, ar, hi, ja
+
+Round 2: verify
+Kane CLI is checking de, ar, hi, ja in real Chrome...
+PASS hi  5 checks  (2.0 credits, 16s)
+PASS de  5 checks  (2.8 credits, 21s)
+PASS ar  6 checks  (2.6 credits, 26s)
+PASS ja  5 checks  (6.0 credits, 30s)
+
+All 4 locales pass  ·  13.4 Kane credits  ·  report: .spillover/report.json
+
+Fixed. Kane verified every locale in 2 rounds.  25.2 credits total
+

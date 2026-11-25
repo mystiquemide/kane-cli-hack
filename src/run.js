@@ -38,7 +38,7 @@ async function checkLocale(config, locale) {
   let browser;
   try {
     browser = await openLocalePage({ url, viewport: config.viewport });
-    result.screenshot = path.resolve(config.outDir, `${locale}.png`);
+    result.screenshot = path.join(config.outDir, `${locale}.png`);
     await browser.screenshot(result.screenshot);
 
     const verdict = await judgePage({
