@@ -112,7 +112,7 @@ function runAgent(command, prompt) {
   });
 }
 
-const DEFAULT_AGENT = "claude -p --permission-mode acceptEdits --allowedTools Read,Edit,Write,Glob,Grep";
+const DEFAULT_AGENT = "claude -p --model sonnet --permission-mode acceptEdits --allowedTools Read,Edit,Write,Glob,Grep";
 
 export async function loop(config, { agent = config.agent || DEFAULT_AGENT, rounds = 3 } = {}) {
   let locales = Object.keys(config.locales);
