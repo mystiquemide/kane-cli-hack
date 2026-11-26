@@ -6,6 +6,10 @@ Spillover opens every language version of your web app in real Chrome and has [K
 
 Built for the [Kane CLI Online Hackathon](https://www.kaneclihack.sh/) by TestMu AI, November 2026.
 
+**[Watch the 3-minute demo on YouTube](https://youtu.be/JoqMYZfDdkM)**
+
+[![Spillover demo video](https://img.youtube.com/vi/JoqMYZfDdkM/hqdefault.jpg)](https://youtu.be/JoqMYZfDdkM)
+
 ![German cart page with a cut-off checkout button and a wrongly formatted price](evidence/screenshots/before-de.png)
 
 *The German cart page as the agent first translated it. The checkout button is cut off mid-word ("Zur Kasse gehe") and the price uses the American format. Nothing in the HTML is wrong.*
