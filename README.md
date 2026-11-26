@@ -128,16 +128,125 @@ The agent wasn't allowed to run commands, and it said so: *"None of the fixes ha
 
 ## Before and after
 
-The same pages before and after the agent's fix, in Chrome at 1280 by 720, the size Spillover checks at. We took these after the Kane runs by loading the demo store with and without the [agent's diff](examples/agent-fix.diff) applied.
+Every screenshot below is the real demo page, at 1280 by 720, the size Spillover checks at. We took them after the Kane runs by loading the demo store with and without the [agent's diff](examples/agent-fix.diff) applied. Under each one is what was wrong and Kane's own verdict, copied word for word from its output, so you don't need to open any files.
 
-| | Before | After |
-|---|---|---|
-| German | ![before](evidence/screenshots/before-de.png) | ![after](evidence/screenshots/after-de.png) |
-| Arabic | ![before](evidence/screenshots/before-ar.png) | ![after](evidence/screenshots/after-ar.png) |
-| Hindi | ![before](evidence/screenshots/before-hi.png) | ![after](evidence/screenshots/after-hi.png) |
-| Japanese | ![before](evidence/screenshots/before-ja.png) | ![after](evidence/screenshots/after-ja.png) |
+### German (de)
 
-The English page, which has no bugs, for reference: [before-en.png](evidence/screenshots/before-en.png).
+**Before**
+
+![German page before: checkout button cut off and price in American format](evidence/screenshots/before-de.png)
+
+What was wrong:
+- The orange checkout button is cut off. It shows "Zur Kasse gehe" instead of "Zur Kasse gehen".
+- The price shows `€1,399.00`. Germans write `1.399,00 €`.
+
+What Kane said ([run 05](evidence/kane-runs/05-check-all-de)):
+
+```
+FAIL  Reading the product price from the item card: value: '€1,399.00' -> '€1,399.00' after ['strip']; equals '1.399,00 €' -> FAIL
+FAIL  Checking visibility of all button labels: value: 'false' -> 'false'; equals 'true' -> FAIL
+```
+
+Notice that Kane also read the button text as `'Zur Kasse gehen'` and passed that check, because the full word is there in the page. Only the visual check sees that the screen cuts it off.
+
+**After the agent's fix**
+
+![German page after: full button label and German price format](evidence/screenshots/after-de.png)
+
+What Kane said ([run 11](evidence/kane-runs/11-loop-round2-de)):
+
+```
+PASS  Reading the product price from the item card: value: '1.399,00 €' -> '1.399,00 €' after ['strip']; equals '1.399,00 €' -> PASS
+PASS  Checking visibility of all button labels: value: 'true' -> 'true'; equals 'true' -> PASS
+```
+
+### Arabic (ar)
+
+**Before**
+
+![Arabic page before: laid out left to right with English currency code](evidence/screenshots/before-ar.png)
+
+What was wrong:
+- The page is laid out left to right. Arabic reads right to left, so the heading, product and buttons should all be mirrored.
+- The price shows `AED 5,499.00`, an English currency code in front. The Arabic format is `5,499.00 د.إ.`
+
+What Kane said ([run 04](evidence/kane-runs/04-check-all-ar)):
+
+```
+FAIL  Reading the item card product price: value: 'AED 5,499.00' -> 'AED 5,499.00' after ['strip']; equals '5,499.00 د.إ.' -> FAIL
+FAIL  Checking the main heading alignment: value: 'false' -> 'false'; equals 'true' -> FAIL
+```
+
+**After the agent's fix**
+
+![Arabic page after: mirrored right-to-left layout and Arabic price format](evidence/screenshots/after-ar.png)
+
+What Kane said ([run 14](evidence/kane-runs/14-loop-round2-ar)):
+
+```
+PASS  Reading the product price from the item card: value: '5,499.00 د.إ.' -> '5,499.00 د.إ.' after ['strip']; equals '5,499.00 د.إ.' -> PASS
+PASS  Checking the right-to-left heading layout: value: 'true' -> 'true'; equals 'true' -> PASS
+```
+
+### Hindi (hi)
+
+**Before**
+
+![Hindi page before: price with Western digit grouping](evidence/screenshots/before-hi.png)
+
+What was wrong:
+- The price shows `₹124,999.00`. In India large numbers are grouped in lakhs, so it should read `₹1,24,999.00`. Everything else on this page was correct.
+
+What Kane said ([run 06](evidence/kane-runs/06-check-all-hi)):
+
+```
+FAIL  Reading the product price from the item card: value: '₹124,999.00' -> '₹124,999.00' after ['strip']; equals '₹1,24,999.00' -> FAIL
+```
+
+**After the agent's fix**
+
+![Hindi page after: price with Indian lakh grouping](evidence/screenshots/after-hi.png)
+
+What Kane said ([run 13](evidence/kane-runs/13-loop-round2-hi)):
+
+```
+PASS  Reading the product price from the item card: value: '₹1,24,999.00' -> '₹1,24,999.00' after ['strip']; equals '₹1,24,999.00' -> PASS
+```
+
+### Japanese (ja)
+
+**Before**
+
+![Japanese page before: shipping note and checkout button still in English](evidence/screenshots/before-ja.png)
+
+What was wrong:
+- The shipping note is still in English: "Free shipping on orders over $50."
+- The checkout button is still in English: "Checkout".
+- Both keys were missing from the Japanese translation file, so the app quietly fell back to English.
+
+What Kane said ([run 03](evidence/kane-runs/03-check-all-ja)). Spillover asked Kane whether the English text was showing, so these are Kane confirming the bug:
+
+```
+FOUND  Reading the product shipping note: value: 'Free shipping on orders over $50.' -> 'Free shipping on orders over $50.' after ['strip']; equals 'Free shipping on orders over $50.' -> PASS
+FOUND  Reading the checkout button label: value: 'Checkout' -> 'Checkout' after ['strip']; equals 'Checkout' -> PASS
+```
+
+**After the agent's fix**
+
+![Japanese page after: shipping note and checkout button in Japanese](evidence/screenshots/after-ja.png)
+
+What Kane said ([run 12](evidence/kane-runs/12-loop-round2-ja)):
+
+```
+PASS  Reading the shipping note below the product: value: '$50以上のご注文は送料無料。' -> '$50以上のご注文は送料無料。' after ['strip']; equals '$50以上のご注文は送料無料。' -> PASS
+PASS  Reading the checkout button label: value: 'レジに進む' -> 'レジに進む' after ['strip']; equals 'レジに進む' -> PASS
+```
+
+### English (reference)
+
+The original English page, which has no bugs. The buttons were sized for these short English words, which is why the German one broke.
+
+![English reference page](evidence/screenshots/before-en.png)
 
 ## How it meets the judging criteria
 
@@ -163,6 +272,38 @@ Everything below is real output from this project, committed to this repository.
 ### Kane CLI runs (16)
 
 Each folder holds Kane's own `session.json` (objective, outcome, credits) and `events.ndjson` (Kane's raw output stream, including every verdict and the value Kane read off the screen). We removed nothing except Kane's UI log, which contains the account username.
+
+Here is part of the last line of [run 05](evidence/kane-runs/05-check-all-de/events.ndjson), the German check, exactly as Kane wrote it. We show one of its five sub-checks, the price. `condition_results` are Kane's answers, and each sub-check shows the value Kane read off the screen and what it was compared with:
+
+```json
+{
+  "type": "run_end",
+  "status": "passed",
+  "duration": 11.34,
+  "condition_results": [
+    true,
+    true,
+    true,
+    false,
+    false
+  ],
+  "condition_sub_checks": [
+    {
+      "description": "The product price on the right side of the item card reads '1.399,00 €'",
+      "extracted_value": "€1,399.00",
+      "expected_value": "1.399,00 €",
+      "operator": "equals",
+      "transforms": [
+        "strip"
+      ],
+      "json_path": null
+    }
+  ],
+  "credits_consumed": 2.42576
+}
+```
+
+In analyzer mode, `"status": "passed"` means Kane finished judging the page. The verdicts are in `condition_results`, and here the last two are `false`: the price and the clipped button.
 
 In the results column, `T` and `F` are Kane's answers to each condition, in order. For "untranslated" checks Spillover asks Kane whether the **English** text is on screen, so `T` there means the bug was seen (runs 03, 09, 16).
 
