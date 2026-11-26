@@ -107,7 +107,7 @@ Brief for your coding agent: .spillover/brief.md
 `spillover loop` closes the loop between Kane and a coding agent:
 
 ```mermaid
-flowchart LR
+flowchart TD
     A["Your app<br/>one URL per language"] --> B["Real Chrome<br/>one per language, in parallel"]
     B -->|CDP| C["Kane CLI<br/>analyzer mode, visual assertions"]
     D["Translation files<br/>+ Intl.NumberFormat"] --> E
