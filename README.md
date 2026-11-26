@@ -106,13 +106,17 @@ Brief for your coding agent: .spillover/brief.md
 
 `spillover loop` closes the loop between Kane and a coding agent:
 
-```
-  ┌──────────────┐   verdicts    ┌──────────────┐   brief.md    ┌──────────────┐
-  │   Kane CLI   │ ────────────▶ │  Spillover   │ ────────────▶ │ Coding agent │
-  │ judges each  │               │ compares and │               │ (Claude Code │
-  │ locale in    │ ◀──────────── │ writes the   │ ◀──────────── │  by default) │
-  │ real Chrome  │  re-check     │ brief        │  edits code   │              │
-  └──────────────┘  failed only  └──────────────┘               └──────────────┘
+```mermaid
+flowchart LR
+    A["Your app<br/>one URL per language"] --> B["Real Chrome<br/>one per language, in parallel"]
+    B -->|CDP| C["Kane CLI<br/>analyzer mode, visual assertions"]
+    D["Translation files<br/>+ Intl.NumberFormat"] --> E
+    C -->|"verdicts and values read off the screen"| E["Spillover<br/>compares and judges"]
+    E -->|all pass| F["Exit 0<br/>verified"]
+    E -->|failures| G[".spillover/brief.md<br/>+ screenshots"]
+    G --> H["Coding agent<br/>Claude Code by default"]
+    H -->|edits the app| A
+    E -.->|re-check only the languages that failed| B
 ```
 
 What happened in our recorded run ([full output](examples/loop-run.txt)):
