@@ -116,7 +116,7 @@ export async function doctor({ file } = {}) {
   };
 
   const major = Number(process.versions.node.split(".")[0]);
-  line(major >= 18, `Node ${process.versions.node}`, "Install Node 18 or newer from nodejs.org");
+  line(major >= 20, `Node ${process.versions.node}`, "Install Node 20 or newer from nodejs.org");
 
   try {
     const opts = process.env.SPILLOVER_CHROME ? { executablePath: process.env.SPILLOVER_CHROME } : { channel: "chrome" };

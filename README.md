@@ -1,5 +1,7 @@
 # Spillover
 
+[![CI](https://github.com/mystiquemide/spillover/actions/workflows/ci.yml/badge.svg)](https://github.com/mystiquemide/spillover/actions/workflows/ci.yml)
+
 **Catch the translation bugs that only show up on screen.**
 
 Spillover opens every language version of your web app in real Chrome and has [Kane CLI](https://www.testmuai.com/kane-cli/) check what a user would actually see. When something is wrong, it hands the problems to your coding agent, then has Kane check again until every language passes.
@@ -355,7 +357,7 @@ Total reported by Kane: **71.61 credits** over 16 runs.
 
 You need three things on your computer. If you already have them, skip to step 4.
 
-**1. Node.js 18 or newer.** Download it from [nodejs.org](https://nodejs.org). Check it with:
+**1. Node.js 20 or newer.** Download it from [nodejs.org](https://nodejs.org). Check it with:
 
 ```bash
 node --version
@@ -559,6 +561,8 @@ npm install
 npm test
 ```
 
+[GitHub Actions](.github/workflows/ci.yml) runs them on Node 20, 22 and 24 for every push and pull request, then packs and installs the CLI and checks `spillover --help`, `spillover init` and the no-credits-spent path of `spillover check`.
+
 | File | Tests | What they cover |
 |---|---|---|
 | [`test/expect.test.js`](test/expect.test.js) | 17 | Lakh grouping, euro and yen formats, building checks for each case, untranslated strings, RTL, and judging what Kane read |
@@ -595,7 +599,8 @@ We'd rather you hear these from us.
 **Scope**
 - One page per language. Checking multi-step flows (cart, then checkout, then confirmation) in every language is the obvious next step.
 - Prices are checked only when the catalog stores them as `amount` plus `currency`.
-- Tested on Linux with Chrome 158, Node 22 and Kane CLI 0.10.9. Not yet tested on macOS or Windows.
+- Kane runs were tested on Linux with Chrome 158, Node 22 and Kane CLI 0.10.9. CI runs the tests on Node 20, 22 and 24 on Linux. Not yet tested on macOS or Windows.
+- Needs Node 20 or newer, because Playwright 1.63 does.
 
 ## What we built with
 

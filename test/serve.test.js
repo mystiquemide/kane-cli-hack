@@ -1,10 +1,10 @@
-import { test } from "node:test";
+import { test, after } from "node:test";
 import assert from "node:assert/strict";
 import { serveFolder } from "../src/serve.js";
 
 const port = 41731;
 const server = await serveFolder(new URL("../demo-app", import.meta.url).pathname, port);
-test.after(() => server.close());
+after(() => server.close());
 
 test("serves the demo store's index page", async () => {
   const res = await fetch(`http://127.0.0.1:${port}/`);

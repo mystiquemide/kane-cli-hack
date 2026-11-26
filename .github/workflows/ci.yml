@@ -1,0 +1,53 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    name: Tests (Node ${{ matrix.node }})
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        node: [20, 22, 24]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node }}
+          cache: npm
+      - run: npm ci
+      - run: npm test
+
+  install:
+    name: Install and run the CLI
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Install the packed CLI globally
+        run: |
+          npm pack
+          npm install -g ./spillover-cli-*.tgz
+      - name: spillover --help
+        run: spillover --help
+      - name: spillover init finds the demo store's catalogs
+        run: |
+          mkdir -p /tmp/app && cp -r demo-app/locales /tmp/app/
+          cd /tmp/app
+          spillover init --url "http://localhost:3000/?lang={locale}"
+          node -e 'const c=require("/tmp/app/spillover.config.json"); if (c.locales.ar.dir !== "rtl" || !c.price) process.exit(1)'
+      - name: check refuses to spend credits when the app is down
+        run: |
+          cd /tmp/app
+          set +e
+          spillover check
+          test $? -eq 2
