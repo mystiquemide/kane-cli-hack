@@ -364,7 +364,7 @@ node --version
 **4. Install Kane CLI and Spillover:**
 
 ```bash
-npm install -g @testmuai/kane-cli github:mystiquemide/kane-cli-hack
+npm install -g @testmuai/kane-cli github:mystiquemide/spillover
 ```
 
 **5. Sign in to Kane:**

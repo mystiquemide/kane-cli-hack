@@ -17,5 +17,18 @@
   "dependencies": {
     "playwright-core": "~1.63.0"
   },
-  "license": "MIT"
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mystiquemide/spillover.git"
+  },
+  "homepage": "https://github.com/mystiquemide/spillover#readme",
+  "keywords": [
+    "kane-cli",
+    "localization",
+    "i18n",
+    "rtl",
+    "visual-testing",
+    "ai-agents"
+  ]
 }
