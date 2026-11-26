@@ -1,0 +1,28 @@
+{
+  "session_id": "ff4a8f56-81d3-4a74-a86a-be2c9947f538",
+  "started_at": "2026-11-25T18:03:15.630Z",
+  "ended_at": "2026-11-25T18:03:43.169Z",
+  "model": "v16-alpha",
+  "environment": "prod",
+  "profile": "default",
+  "plan": "free",
+  "status": "complete",
+  "outcome": "passed",
+  "total_runs": 1,
+  "test_id": null,
+  "testcase_id": null,
+  "commit_id": "ff4a8f56-81d3-4a74-a86a-be2c9947f538",
+  "project_id": null,
+  "upload_status": "pending",
+  "upload_attempts": 0,
+  "last_upload_attempt": null,
+  "upload_error": null,
+  "runs": [
+    {
+      "index": 0,
+      "objective": "The main page heading reads 'Ihr Warenkorb'\nThe shipping note below the product reads 'Kostenloser Versand ab 50 €.'\nThe orange checkout button reads 'Zur Kasse gehen'\nThe product price on the right side of the item card reads '1.399,00 €'\nEvery button label on the page is fully visible, with no words cut off or clipped by the button edge",
+      "status": "passed"
+    }
+  ],
+  "credits_consumed": 6.9295
+}

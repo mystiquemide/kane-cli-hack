@@ -1,0 +1,28 @@
+{
+  "session_id": "e943c31a-da80-4a75-b988-040dc296d4e6",
+  "started_at": "2026-11-25T18:40:37.630Z",
+  "ended_at": "2026-11-25T18:41:12.828Z",
+  "model": "v16-alpha",
+  "environment": "prod",
+  "profile": "default",
+  "plan": "free",
+  "status": "complete",
+  "outcome": "passed",
+  "total_runs": 1,
+  "test_id": null,
+  "testcase_id": null,
+  "commit_id": "e943c31a-da80-4a75-b988-040dc296d4e6",
+  "project_id": null,
+  "upload_status": "pending",
+  "upload_attempts": 0,
+  "last_upload_attempt": null,
+  "upload_error": null,
+  "runs": [
+    {
+      "index": 0,
+      "objective": "The page shows the text 'ショップ' in full\nThe page shows the text 'アカウント' in full\nThe page shows the text 'カート' in full\nThe page shows the untranslated text 'Free shipping on orders over $50.'\nThe page shows the text '買い物を続ける' in full\nThe page shows the untranslated text 'Checkout'\nThe product price on the right side of the item card reads '¥219,800'\nEvery button label on the page is fully visible, with no words cut off or clipped by the button edge",
+      "status": "passed"
+    }
+  ],
+  "credits_consumed": 5.4178999999999995
+}

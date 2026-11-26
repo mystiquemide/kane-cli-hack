@@ -35,3 +35,11 @@ test("picks visible strings, skipping prices and codes", () => {
   const keys = pickStrings({ cart: { title: "Your cart" }, price: { amount: 5, currency: "USD" } }, 5, ["price"]);
   assert.deepEqual(keys, ["cart.title"]);
 });
+
+test("returns null when a project has no translation files", async () => {
+  assert.equal(await findCatalogs(await mkdtemp(path.join(tmpdir(), "spill-"))), null);
+});
+
+test("keeps an unknown locale code as is", () => {
+  assert.equal(intlFor("not a locale"), "not a locale");
+});

@@ -1,0 +1,28 @@
+{
+  "session_id": "580b8c53-14fc-4a7c-aa1d-6fa45cf62afe",
+  "started_at": "2026-11-25T18:06:27.747Z",
+  "ended_at": "2026-11-25T18:06:54.725Z",
+  "model": "v16-alpha",
+  "environment": "prod",
+  "profile": "default",
+  "plan": "free",
+  "status": "complete",
+  "outcome": "passed",
+  "total_runs": 1,
+  "test_id": null,
+  "testcase_id": null,
+  "commit_id": "580b8c53-14fc-4a7c-aa1d-6fa45cf62afe",
+  "project_id": null,
+  "upload_status": "pending",
+  "upload_attempts": 0,
+  "last_upload_attempt": null,
+  "upload_error": null,
+  "runs": [
+    {
+      "index": 0,
+      "objective": "The main page heading reads 'आपकी कार्ट'\nThe shipping note below the product reads '₹999 से अधिक के ऑर्डर पर मुफ़्त शिपिंग।'\nThe orange checkout button reads 'चेकआउट करें'\nThe product price on the right side of the item card reads '₹1,24,999.00'\nEvery button label on the page is fully visible, with no words cut off or clipped by the button edge",
+      "status": "passed"
+    }
+  ],
+  "credits_consumed": 2.00976
+}

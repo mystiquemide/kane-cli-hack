@@ -1,7 +1,5 @@
 import { spawn } from "node:child_process";
 
-const KANE = process.env.SPILLOVER_KANE_BIN || "kane-cli";
-
 // Ask Kane CLI to judge a list of conditions against the page open in the
 // Chrome instance at cdpEndpoint. Uses analyzer mode: no clicks, no authoring,
 // just verdicts on what is on screen.
@@ -19,7 +17,7 @@ export function judgePage({ cdpEndpoint, url, conditions, assertionMode = "visua
   for (const condition of conditions) args.push("--condition", condition);
 
   return new Promise((resolve) => {
-    const child = spawn(KANE, args, { stdio: ["ignore", "pipe", "pipe"] });
+    const child = spawn(process.env.SPILLOVER_KANE_BIN || "kane-cli", args, { stdio: ["ignore", "pipe", "pipe"] });
     let buffer = "";
     let stderr = "";
     const events = [];

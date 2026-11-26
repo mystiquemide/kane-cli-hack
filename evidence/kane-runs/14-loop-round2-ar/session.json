@@ -1,0 +1,28 @@
+{
+  "session_id": "fa85daa2-b88a-447a-872d-7182115bf93f",
+  "started_at": "2026-11-25T18:06:27.803Z",
+  "ended_at": "2026-11-25T18:07:04.304Z",
+  "model": "v16-alpha",
+  "environment": "prod",
+  "profile": "default",
+  "plan": "free",
+  "status": "complete",
+  "outcome": "passed",
+  "total_runs": 1,
+  "test_id": null,
+  "testcase_id": null,
+  "commit_id": "fa85daa2-b88a-447a-872d-7182115bf93f",
+  "project_id": null,
+  "upload_status": "pending",
+  "upload_attempts": 0,
+  "last_upload_attempt": null,
+  "upload_error": null,
+  "runs": [
+    {
+      "index": 0,
+      "objective": "The main page heading reads 'سلة التسوق'\nThe shipping note below the product reads 'شحن مجاني للطلبات التي تزيد عن 200 درهم.'\nThe orange checkout button reads 'إتمام الشراء'\nThe product price on the right side of the item card reads '5,499.00 د.إ.'\nEvery button label on the page is fully visible, with no words cut off or clipped by the button edge\nThe page is laid out right-to-left: the main heading starts at the right side of the content area, not the left",
+      "status": "passed"
+    }
+  ],
+  "credits_consumed": 2.5959199999999996
+}

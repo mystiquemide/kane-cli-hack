@@ -1,0 +1,28 @@
+{
+  "session_id": "e7abfa4a-f1c8-4342-9255-de6a637e82c2",
+  "started_at": "2026-11-25T18:03:50.318Z",
+  "ended_at": "2026-11-25T18:04:18.817Z",
+  "model": "v16-alpha",
+  "environment": "prod",
+  "profile": "default",
+  "plan": "free",
+  "status": "complete",
+  "outcome": "passed",
+  "total_runs": 1,
+  "test_id": null,
+  "testcase_id": null,
+  "commit_id": "e7abfa4a-f1c8-4342-9255-de6a637e82c2",
+  "project_id": null,
+  "upload_status": "pending",
+  "upload_attempts": 0,
+  "last_upload_attempt": null,
+  "upload_error": null,
+  "runs": [
+    {
+      "index": 0,
+      "objective": "The main page heading reads 'カート'\nThe shipping note below the product reads 'Free shipping on orders over $50.'\nThe orange checkout button reads 'Checkout'\nThe product price on the right side of the item card reads '¥219,800'\nEvery button label on the page is fully visible, with no words cut off or clipped by the button edge",
+      "status": "passed"
+    }
+  ],
+  "credits_consumed": 5.8881000000000006
+}
